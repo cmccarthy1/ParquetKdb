@@ -2,6 +2,7 @@
 
 // Python dependancies
 pa     :.p.import`pyarrow
+patab  :.p.import[`pyarrow]`:Table
 feather:.p.import`pyarrow.feather
 
 
@@ -54,11 +55,11 @@ readTable:{[arrowTable;batch;transforms;casts]
 // converts a q table to an arrow table
 // t        = a q table
 /. return = the arrow table as an EmbedPy object
-toArrowtable:{[t]
+toArrowTable:{[t]
   dt_cols:m[`c]where(m:0!meta t)[`t]in "pmdznuvt";
   d:flip t;
   d[dt_cols]:.ap.numpifyDatetime t dt_cols;
-  pa[`:Table][`:from_pydict]d
+  patab[`:from_pydict]d
   }
 
 
