@@ -28,3 +28,17 @@ show flip .pq.readTable[`$base;transforms];
 show casts:enlist[`casts]!enlist `gender`ip_address!`symbol`symbol;
 -1"\nThe following shows these casts as applied to the data";
 show flip .pq.readTable[`$base;casts];
+
+-1"\n\nWriting the following table to a feather file\n";
+show 5#tab:([]100?0b;100?1f;100?1f;100?("abc";"bcd"))
+.aw.writeFeather[tab;`$"./test.feather";::];
+
+-1"\n\nThis is the table as read from the feather file on disk\n";
+show 5#.aw.readFeather[`$"./test.feather";::];
+
+-1"\n\nConverting the saved feather table to arrow and returning the tables metadata\n";
+f2a:.aw.featherToArrow[`$"./test.feather";::];
+show .aw.metadata[f2a];
+
+-1"\n\nReturning the arrow table converted from feather file as a q table\n";
+show 5#.aw.readTable[f2a;::;::;::];
