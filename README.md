@@ -35,7 +35,7 @@ Place the library file in `$QHOME` and load into a q instance using `parquet/par
 
 This will load all the functions contained within the `.pq`,`.aw` and `.ap` namespaces  
 ```q
-q)\l parquet/parquet.q
+q)\l ParquetKdb/parquet.q
 q).pq.loadfile`:init.q
 ```
 

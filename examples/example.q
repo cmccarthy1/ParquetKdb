@@ -1,4 +1,4 @@
-\l parquet/parquet.q
+\l ParquetKdb/parquet.q
 .pq.loadfile`:init.q
 
 base:"./data/userdata"

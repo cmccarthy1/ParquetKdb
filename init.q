@@ -1,4 +1,4 @@
-\l parquet/parquet.q        			// loading of this allows `q parquet/init.q` to load the functionality
+\l ParquetKdb/parquet.q        			// loading of this allows `q parquet/init.q` to load the functionality
 
 .pq.loadfile`:code/utils_parquet.q
 .pq.loadfile`:code/utils_arrow.q
