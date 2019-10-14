@@ -27,7 +27,7 @@ conda install --file requirements.txt
 
 Place the library file in `$QHOME` and load into a q instance using `parquet/parquet.q`
 
-This will load all the functions contained within the `.pq`,`.aw` and `.ap` namespaces  
+This will load all the functions contained within the `.pq` namespaces  
 ```q
 q)\l ParquetKdb/parquet.q
 q).pq.loadfile`:init.q
