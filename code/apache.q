@@ -17,7 +17,7 @@ writeTable:{[typ;t;target;opts]
   $[typ =`feather;
       feather[`:write_feather][;parsePath target]$[98h~type t;tableToDataframe;]t;
     typ=`parquet;
-      arrowToFile[;target;opts]$[98h~type t;toArrowTable;]t;
+      arrowToFile[;target;opts]$[98h~type t;kdbToArrow;]t
     '`$"first argument must be either `feather or `parquet"];
   }
 
