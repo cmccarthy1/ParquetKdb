@@ -56,8 +56,8 @@ fileToArrowTable:{[target;columns]
 // Get the metadata of a parquet file
 /* path    = the path as a symbol to the parquet file/directory
 /. returns = a dictionary containing the appropriate information 
-metadata:{[path]
-  .aw.metadata fileToArrowTable[path;::]
+parquetMetadata:{[path]
+  .aw.arrowMetadata fileToArrowTable[path;::]
   }
 
 // Import a parquet table from disk
@@ -68,11 +68,11 @@ metadata:{[path]
 /            opts`transforms -> mapping of column names to functions to be to the column
 /            opts`casts      -> mapping of column names to type columns should be cast to
 /. returns = table
-readTable:{[path;opts]
+readParquetTable:{[path;opts]
  opts:$[(opts~(::)) or opts~()!();
    (enlist`)!enlist(::);
    (enlist[`]!enlist(::))^opts];
-   .aw.readTable[fileToArrowTable[path;opts`columns];
+   .aw.readArrowTable[fileToArrowTable[path;opts`columns];
    opts`batch;
    opts`transforms;
    opts`casts

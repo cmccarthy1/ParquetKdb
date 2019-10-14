@@ -20,7 +20,7 @@ featherToArrow:{[target;opts]
 // wrapper around the python function i.metadata
 /* arrowTable = an arrow table
 /. returns    = a dictionary containing the metadata `num_row_groups`num_rows`columns`types!JJSS
-metadata:{[arrowTable]
+arrowMetadata:{[arrowTable]
   @[m;c;:;`$(m:i.metadata arrowTable)c:`columns`types]
   }
 
@@ -31,7 +31,7 @@ metadata:{[arrowTable]
 /* opts    = dictionary indicating columns to read ,`columns!col_list or (::)
 /. returns = the table from the feature file
 readFeather:{[target;opts]
-  readTable[;::;::;::] featherToArrow[target;opts]
+  readArrowTable[;::;::;::] featherToArrow[target;opts]
   }
 
 
@@ -42,7 +42,7 @@ readFeather:{[target;opts]
 /* transforms = mapping of column names to functions to apply to the column (dict [symbol:fn])
 /* casts      = special case of transforms to cast non-strings and tok strings as specified (dict [symbol: symbol])
 /. returns    = q table
-readTable:{[arrowTable;batch;transforms;casts]
+readArrowTable:{[arrowTable;batch;transforms;casts]
   t:(transforms~(::))|transforms~()!();
   c:(casts~(::))|casts~()!();
   caster:{$[10h~type first y;upper[x]$y;x$y]};
