@@ -4,12 +4,6 @@
 
 This repository contains a number of functions which are used to interogate, read and write to Apache Arrow and Parquet formats through embedPy
 
-This repository contains the following subsections of code at present (contained in the `code/`)with currently three namespaces although this is only temporary:
-*  `ax_apache.q`  contains functions for the conversion of q tables to pandas dataframes and vice-versa
-*  `ax_arrow.q`   contains functions for the conversion of q tables to 'feather' files and arrow tables and vice-versa
-*  `ax_parquet.q` contains functions for the conversion of q tables to parquet files on disk, for importing parquet files from disk, writing arrow tables to disk and converting a byte buffer to an arrow table
-
-
 Documentation for this library will be added in time, for now it should be taken that the comments within the `.q` files is sufficient to test the functions as is the demo script provided
 
 
@@ -46,11 +40,8 @@ The examples can be run from the `examples` folder through execution of `$q exam
 ```
 $q examples.q
 Loading init.q
-Loading code/utils_parquet.q
-Loading code/utils_arrow.q
-Loading code/ax_apache.q
-Loading code/ax_arrow.q
-Loading code/ax_parquet.q
+Loading code/utils.q
+Loading code/apache.q
 
 Importing and displaying a single parquet file as a kdb table
 
@@ -88,6 +79,7 @@ num_row_groups| 5
 num_rows      | 5000
 columns       | `registration_dttm`id`first_name`last_name`email`gender`ip_ad..
 types         | `timestamp[ns]`int32`string`string`string`string`string`strin..
+
 
 Reading a subset of the columns within the parquet file 
 
@@ -142,4 +134,47 @@ birthdate        | "3/8/1971"                    "1/16/1968"                 ..
 salary           | 49756.53                      150280.2                    ..
 title            | "Internal Auditor"            "Accountant IV"             ..
 comments         | "1E+02"                       ""                          ..
+
+
+Writing the following table to a feather file
+
+x x1        x2        x3    x4                           
+---------------------------------------------------------
+0 0.7250709 0.724948  "bcd" 2001.07.27D19:28:10.277400616
+1 0.481804  0.8112026 "abc" 2002.01.25D11:16:58.871372936
+1 0.9351307 0.2086614 "bcd" 2002.01.23D20:18:37.606906592
+0 0.7093398 0.9907116 "abc" 2001.08.17D03:16:23.736627552
+1 0.9452199 0.5794801 "abc" 2000.09.17D04:19:56.627251804
+
+
+This is the table as read from the feather file on disk
+
+x x1        x2        x3    x4                           
+---------------------------------------------------------
+0 0.7250709 0.724948  "bcd" 2001.07.27D19:28:10.277400616
+1 0.481804  0.8112026 "abc" 2002.01.25D11:16:58.871372936
+1 0.9351307 0.2086614 "bcd" 2002.01.23D20:18:37.606906592
+0 0.7093398 0.9907116 "abc" 2001.08.17D03:16:23.736627552
+1 0.9452199 0.5794801 "abc" 2000.09.17D04:19:56.627251804
+
+
+Converting the saved feather table to arrow and returning the tables metadata
+
+num_row_groups| 1
+num_rows      | 100
+columns       | `x`x1`x2`x3`x4
+types         | `bool`double`double`string`timestamp[ns]
+
+
+Returning the arrow table converted from feather file as a q table
+
+x x1        x2        x3    x4                           
+---------------------------------------------------------
+0 0.7250709 0.724948  "bcd" 2001.07.27D19:28:10.277400616
+1 0.481804  0.8112026 "abc" 2002.01.25D11:16:58.871372936
+1 0.9351307 0.2086614 "bcd" 2002.01.23D20:18:37.606906592
+0 0.7093398 0.9907116 "abc" 2001.08.17D03:16:23.736627552
+1 0.9452199 0.5794801 "abc" 2000.09.17D04:19:56.627251804
+
+Removing files produced during the production of these example
 ```
